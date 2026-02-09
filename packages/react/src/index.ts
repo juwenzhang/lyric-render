@@ -1,0 +1,6 @@
+export { default as LyricPlayer } from './components/LyricPlayer'
+export { useLyric, type LyricState } from './hooks/useLyric'
+export { useAudioSync } from './hooks/useAudioSync'
+export { defaultTheme, otherTheme } from './styles/themes'
+export * from './types'
+export * from './styles/global'

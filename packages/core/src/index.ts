@@ -6,3 +6,4 @@ export {
   calculateScrollTop,
   calculateShowCount,
 } from './utils'
+export { LyricCache, defaultLyricCache } from './utils/lyricCache'

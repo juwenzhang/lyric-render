@@ -2,6 +2,7 @@
   "name": "@lyric-render/core",
   "version": "1.0.0",
   "description": "歌词渲染解析的核心包",
+  "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",

@@ -7,6 +7,7 @@ export default defineConfig([
   {
     input: 'src/index.ts',
     plugins: [typescript()],
+    external: [],
     output: [
       {
         file: 'dist/index.cjs',

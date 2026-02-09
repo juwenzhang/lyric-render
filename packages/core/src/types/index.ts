@@ -5,19 +5,22 @@
 /**
  * 基础歌词项
  * @interface BaseLyricItem
- * @description 基础歌词项，包含时间、文本、持续时间和单词数组
+ * @description 基础歌词项，包含时间、文本、持续时间、单词数组和翻译
  * @property {number} time - 时间，单位为毫秒
  * @property {string} text - 文本
+ * @property {string} translate - 翻译文本
  * @property {number} duration - 持续时间，单位为毫秒
  * @property {Array<{ time: number; text: string }>} words - 单词数组，每个单词包含时间、文本
  */
 export interface BaseLyricItem {
   time: number
   text: string
+  translate?: string
   duration?: number
   words?: Array<{
     time: number
     text: string
+    duration?: number
   }>
 }
 
@@ -68,3 +71,24 @@ export interface MatchLyricResult {
   index: number
   item: BaseLyricItem | null
 }
+
+/**
+ * 音频分段
+ * @interface AudioSegment
+ * @description 音频分段信息，包含音频源、开始时间和结束时间
+ * @property {string} src - 音频源
+ * @property {number} startTime - 开始时间，单位为秒
+ * @property {number} endTime - 结束时间，单位为秒
+ */
+export interface AudioSegment {
+  src: string
+  startTime: number
+  endTime: number
+}
+
+/**
+ * 多段音频源
+ * @type MultiAudioSource
+ * @description 多段音频源，可以是单个音频字符串或音频分段数组
+ */
+export type MultiAudioSource = string | AudioSegment[]

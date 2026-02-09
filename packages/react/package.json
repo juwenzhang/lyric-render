@@ -1,0 +1,51 @@
+{
+  "name": "@lyric-render/react",
+  "version": "1.0.0",
+  "description": "歌词渲染解析的React组件包",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rimraf dist && tsc && rollup -c rollup.config.ts",
+    "dev": "tsc --watch",
+    "lint": "eslint src --ext .ts,.tsx"
+  },
+  "keywords": [
+    "lyric-render",
+    "luhanxin"
+  ],
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "@types/react": "^18.2.38",
+    "@types/react-dom": "^18.2.17",
+    "@types/react-virtualized": "^9.22.3",
+    "@types/styled-components": "^5.1.32",
+    "@types/styled-system": "^5.1.19",
+    "rimraf": "^6.1.2",
+    "rollup": "^4.57.1",
+    "rollup-plugin-dts": "^6.3.0",
+    "rollup-plugin-typescript2": "^0.36.0"
+  },
+  "dependencies": {
+    "@lyric-render/core": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^6.1.1",
+    "styled-system": "^5.1.5"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^6.1.1",
+    "styled-system": "^5.1.5"
+  },
+  "author": "juwenzhang",
+  "license": "MIT",
+  "packageManager": "pnpm@10.25.0"
+}

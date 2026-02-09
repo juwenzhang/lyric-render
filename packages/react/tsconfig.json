@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
+    "noEmit": false,
+    "declaration": false,
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "exclude": ["rollup.config.ts", "dist"]
+}
