@@ -1,0 +1,47 @@
+{
+  "name": "lyric-render",
+  "private": true,
+  "description": "",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "pnpm -filter demo dev",
+    "build": "pnpm -filter \"packages/**\" build",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.vue",
+    "format": "prettier --write .",
+    "prepare": "husky",
+    "commit": "git cz",
+    "lint:md": "markdownlint README.md"
+  },
+  "keywords": [
+    "lyric-render",
+    "luhanxin"
+  ],
+  "author": "juwenzhang",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^20.4.1",
+    "@commitlint/config-conventional": "^20.4.1",
+    "@types/node": "^25.2.2",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "husky": "^9.1.7",
+    "markdownlint-cli": "^0.47.0",
+    "prettier": "^3.1.0",
+    "rimraf": "^6.1.2",
+    "typescript": "^5.9.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "packageManager": "pnpm@10.25.0",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
