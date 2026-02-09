@@ -46,13 +46,19 @@ const LyricPlayer: React.FC<LyricPlayerProps> = ({
 
   const { lyricList, lyricState, parseLyric, setBaseTime } = useLyric()
 
-  const { currentLyricIndex, audioRef, containerRef, handleLyricClick } =
-    useAudioSync({
-      lyricList,
-      singleLineHeight: singleLineHeight || 50,
-      align: align || 'center',
-      onLyricChange: (res) => onLyricChange?.(res.index, res.item),
-    })
+  const {
+    currentLyricIndex,
+    currentTime,
+    audioRef,
+    containerRef,
+    handleLyricClick,
+  } = useAudioSync({
+    lyricList,
+    singleLineHeight: singleLineHeight || 50,
+    align: align || 'center',
+    onLyricChange: (res) => onLyricChange?.(res.index, res.item),
+    currentSegmentStartTime: currentSegment?.startTime || 0,
+  })
 
   // 处理多段音频
   const audioSegments = useMemo(() => {
@@ -74,6 +80,7 @@ const LyricPlayer: React.FC<LyricPlayerProps> = ({
         setCurrentSegmentIndex(index)
         if (audioRef.current) {
           audioRef.current.src = segment.src
+          // 设置音频的当前时间为分段内的相对时间
           audioRef.current.currentTime = currentTime - segment.startTime
           audioRef.current.play()
         }
@@ -94,7 +101,12 @@ const LyricPlayer: React.FC<LyricPlayerProps> = ({
     const handlePlay = () => onAudioPlay?.(true)
     const handlePause = () => onAudioPlay?.(false)
     const handleTimeUpdate = () => {
-      checkAndSwitchSegment(audio.currentTime)
+      // 获取当前音频分段的绝对开始时间
+      const currentSegmentStartTime = currentSegment?.startTime || 0
+      // 计算绝对时间：分段开始时间 + 音频相对时间
+      const absoluteTime = currentSegmentStartTime + audio.currentTime
+      // 使用绝对时间检查并切换分段
+      checkAndSwitchSegment(absoluteTime)
     }
     audio.addEventListener('play', handlePlay)
     audio.addEventListener('pause', handlePause)
@@ -104,7 +116,7 @@ const LyricPlayer: React.FC<LyricPlayerProps> = ({
       audio.removeEventListener('pause', handlePause)
       audio.removeEventListener('timeupdate', handleTimeUpdate)
     }
-  }, [onAudioPlay, checkAndSwitchSegment])
+  }, [onAudioPlay, checkAndSwitchSegment, currentSegment])
 
   // 初始化音频分段
   useEffect(() => {
@@ -125,8 +137,7 @@ const LyricPlayer: React.FC<LyricPlayerProps> = ({
                 word: { time: number; text: string; duration?: number },
                 i: number
               ) => {
-                const isWordHighlight =
-                  (audioRef?.current?.currentTime ?? 0) >= word.time
+                const isWordHighlight = currentTime >= word.time
                 return (
                   <WordText
                     key={i + word.text}

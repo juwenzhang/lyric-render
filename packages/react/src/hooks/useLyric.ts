@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react'
-import { parseLyric, defaultLyricCache } from '@lyric-render/core'
+import { parseLyric as coreParseLyric, defaultLyricCache } from '@lyric-render/core'
 import type {
   BaseLyricItem,
   LyricSource,
@@ -66,26 +66,33 @@ export const useLyric = (initialSource?: LyricSource): UseLyricResult => {
    * 解析歌词的具体逻辑
    */
   const doParseLyric = useCallback(
-    (source: LyricSource, options: ParseOptions = {}) => {
+    async (source: LyricSource, options: ParseOptions = {}) => {
       setLyricState('loading')
       try {
         // 生成缓存键
         const cacheKey =
           typeof source === 'string' ? source : JSON.stringify(source)
         // 检查缓存
-        const cachedLyrics = defaultLyricCache.get(cacheKey)
+        console.log('Checking cache for key:', cacheKey)
+        const cachedLyrics = await defaultLyricCache.get(cacheKey)
+        console.log('Cached lyrics found:', cachedLyrics)
         if (cachedLyrics) {
           setLyricList(cachedLyrics)
           setLyricState(cachedLyrics.length > 0 ? 'loaded' : 'error')
           return
         }
         // 解析歌词
-        const lyrics = parseLyric(source, { ...options, baseTime })
+        console.log('Parsing lyric source:', source)
+        const lyrics = coreParseLyric(source, { ...options, baseTime })
+        console.log('Parsed lyrics:', lyrics)
         // 缓存结果
-        defaultLyricCache.set(cacheKey, lyrics)
+        console.log('Caching lyrics for key:', cacheKey)
+        await defaultLyricCache.set(cacheKey, lyrics)
+        console.log('Lyrics cached successfully')
         setLyricList(lyrics)
         setLyricState(lyrics.length > 0 ? 'loaded' : 'error')
       } catch (error) {
+        console.error('Error parsing lyric:', error)
         setLyricState('error')
       }
     },

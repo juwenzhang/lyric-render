@@ -30,7 +30,9 @@ const App = () => {
         height="60vh"
         showAudioControl={true}
         onLyricChange={handleLyricChange}
-        onAudioPlay={(isPlaying) => console.log('音频播放状态:', isPlaying)}
+        onAudioPlay={(isPlaying: boolean) =>
+          console.log('音频播放状态:', isPlaying)
+        }
       />
     </div>
   )

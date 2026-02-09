@@ -137,6 +137,7 @@ export const WordText = styled.span<{
       ? props.theme.wordHighlight.color
       : props.theme.normal.color};
   transition: all 0.1s ease;
+  white-space: pre;
   ${(props) =>
     props.$animate &&
     props.$isHighlight &&

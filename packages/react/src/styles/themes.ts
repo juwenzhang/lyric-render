@@ -3,26 +3,26 @@ import type { LyricTheme } from './types'
 export const defaultTheme: LyricTheme = {
   container: {
     bg: '#ffffff',
-    border: '1px solid #e5e7eb',
-    padding: '0 16px',
+    border: 'none',
+    padding: '0 20px',
   },
   normal: {
-    color: '#6b7280',
+    color: '#666666',
     fontSize: '16px',
-    lineHeight: '48px',
+    lineHeight: '52px',
     fontWeight: 400,
   },
   highlight: {
     color: '#165DFF',
     fontSize: '18px',
-    lineHeight: '48px',
+    lineHeight: '52px',
     fontWeight: 600,
   },
   wordHighlight: {
     color: '#165DFF',
   },
   state: {
-    color: '#9ca3af',
+    color: '#999999',
     fontSize: '16px',
   },
   animation: {
@@ -33,17 +33,34 @@ export const defaultTheme: LyricTheme = {
 }
 
 export const otherTheme: LyricTheme = {
-  ...defaultTheme,
+  container: {
+    bg: '#ffffff',
+    border: 'none',
+    padding: '0 20px',
+  },
+  normal: {
+    color: '#666666',
+    fontSize: '16px',
+    lineHeight: '50px',
+    fontWeight: 400,
+  },
   highlight: {
-    ...defaultTheme.highlight,
     color: '#FF2442',
-    bg: 'rgba(255, 36, 66, 0.05)',
+    fontSize: '18px',
+    lineHeight: '50px',
+    fontWeight: 600,
+    bg: 'rgba(255, 36, 66, 0.08)',
   },
   wordHighlight: {
     color: '#FF2442',
   },
-  container: {
-    ...defaultTheme.container,
-    border: '1px solid #f0f0f0',
+  state: {
+    color: '#999999',
+    fontSize: '16px',
+  },
+  animation: {
+    fadeIn: 'fadeIn 0.5s ease-in-out',
+    scale: 'scale 0.3s ease-in-out',
+    gradient: 'gradient 1s ease-in-out infinite',
   },
 }

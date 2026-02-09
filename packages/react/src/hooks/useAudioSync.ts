@@ -12,23 +12,27 @@ import type {
  * @param singleLineHeight 单行高度
  * @param align 对齐方式
  * @param onLyricChange 歌词改变时的回调
+ * @param currentSegmentStartTime 当前音频分段的开始时间
  */
 export interface UseAudioSyncOptions {
   lyricList: BaseLyricItem[]
   singleLineHeight: number
   align: 'center' | 'top'
   onLyricChange?: (lyric: MatchLyricResult) => void
+  currentSegmentStartTime?: number
 }
 
 /**
  * 歌词同步的结果
  * @param currentLyricIndex 当前歌词索引
+ * @param currentTime 当前音频时间
  * @param audioRef 音频元素的引用
  * @param handleLyricClick 歌词点击事件
  * @param refreshSync 刷新同步
  */
 export interface UseAudioSyncResult {
   currentLyricIndex: number
+  currentTime: number
   audioRef: React.RefObject<HTMLAudioElement>
   containerRef: React.RefObject<HTMLDivElement>
   handleLyricClick: (index: number) => void
@@ -43,8 +47,10 @@ export const useAudioSync = (
     singleLineHeight,
     align = 'center',
     onLyricChange,
+    currentSegmentStartTime = 0,
   } = options
   const [currentLyricIndex, setCurrentLyricIndex] = useState<number>(0)
+  const [currentTime, setCurrentTime] = useState<number>(0)
   const audioRef = useRef<HTMLAudioElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const containerHeightRef = useRef<number>(0)
@@ -68,12 +74,16 @@ export const useAudioSync = (
     }
     // 确保容器高度已更新
     updateContainerHeight()
-    const currentTime = audioRef.current.currentTime
+    // 获取音频的相对时间
+    const relativeTime = audioRef.current.currentTime
+    // 计算绝对时间：分段开始时间 + 音频相对时间
+    const absoluteTime = currentSegmentStartTime + relativeTime
+    // 更新当前时间状态，确保组件重新渲染
+    setCurrentTime(absoluteTime)
     // 获取音频播放速度
     const playbackRate = audioRef.current.playbackRate || 1
-    // 计算调整后的时间（倍速播放时使用实际时间）
-    // 注意：matchLyric 函数使用的是音频的实际时间，不需要调整
-    const matchResult = matchLyric(currentTime, lyricList)
+    // 使用绝对时间匹配歌词
+    const matchResult = matchLyric(absoluteTime, lyricList)
     if (matchResult.index !== currentLyricIndex) {
       setCurrentLyricIndex(matchResult.index)
       onLyricChange?.(matchResult)
@@ -91,17 +101,29 @@ export const useAudioSync = (
     ) {
       containerRef.current.scrollTop = newScrollTop
     }
-  }, [lyricList, singleLineHeight, align, onLyricChange, updateContainerHeight])
+  }, [
+    lyricList,
+    singleLineHeight,
+    align,
+    onLyricChange,
+    updateContainerHeight,
+    currentSegmentStartTime,
+  ])
 
   const handleLyricClick = useCallback(
     (index: number) => {
       if (!audioRef.current || index < 0 || index >= lyricList.length) {
         return
       }
-      audioRef.current.currentTime = lyricList[index].time
+      // 获取歌词的绝对时间
+      const lyricTime = lyricList[index].time
+      // 计算音频分段内的相对时间
+      const relativeTime = lyricTime - currentSegmentStartTime
+      // 设置音频的当前时间为相对时间
+      audioRef.current.currentTime = relativeTime
       syncLyric()
     },
-    [syncLyric, lyricList]
+    [syncLyric, lyricList, currentSegmentStartTime]
   )
 
   /**
@@ -138,6 +160,7 @@ export const useAudioSync = (
 
   return {
     currentLyricIndex,
+    currentTime,
     audioRef,
     containerRef,
     handleLyricClick,
