@@ -1,0 +1,35 @@
+{
+  "name": "@lyric-render/core",
+  "version": "1.0.0",
+  "description": "歌词渲染解析的核心包",
+  "main": "dist/index.cjs",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rimraf dist && rollup -c rollup.config.ts",
+    "dev": "tsc --watch",
+    "lint": "eslint src --ext .ts"
+  },
+  "keywords": [
+    "lyric-render",
+    "luhanxin"
+  ],
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "rimraf": "^6.1.2",
+    "rollup": "^4.57.1",
+    "rollup-plugin-dts": "^6.3.0",
+    "rollup-plugin-typescript2": "^0.36.0"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  },
+  "author": "juwenzhang",
+  "license": "MIT",
+  "packageManager": "pnpm@10.25.0"
+}
