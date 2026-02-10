@@ -13,7 +13,9 @@
     "format": "prettier --write .",
     "prepare": "husky",
     "commit": "git cz",
-    "lint:md": "markdownlint README.md"
+    "lint:md": "markdownlint README.md",
+    "changeset:add": "pnpm changeset add",
+    "changeset:publish": "pnpm changeset publish"
   },
   "keywords": [
     "lyric-render",
@@ -47,5 +49,8 @@
   "packageManager": "pnpm@10.25.0",
   "engines": {
     "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.29.8"
   }
 }
