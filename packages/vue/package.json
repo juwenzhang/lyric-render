@@ -1,0 +1,42 @@
+{
+  "name": "@lyric-render/vue",
+  "version": "1.0.0",
+  "description": "歌词渲染解析的Vue组件包",
+  "type": "module",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rimraf dist && vite build && vue-tsc --declaration --emitDeclarationOnly",
+    "dev": "vite",
+    "lint": "eslint src --ext .ts,.tsx"
+  },
+  "keywords": [
+    "lyric-render",
+    "luhanxin"
+  ],
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.4",
+    "@vue/tsconfig": "^0.8.1",
+    "rimraf": "^6.1.2",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vue-tsc": "^3.1.5"
+  },
+  "dependencies": {
+    "@lyric-render/core": "workspace:*",
+    "vue": "^3.5.28"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.28"
+  },
+  "author": "juwenzhang",
+  "license": "MIT",
+  "packageManager": "pnpm@10.25.0"
+}

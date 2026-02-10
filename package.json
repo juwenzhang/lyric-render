@@ -5,9 +5,10 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "pnpm -filter demo dev",
-    "build": "pnpm -filter core build && pnpm -filter react build",
+    "build": "pnpm -filter core build && pnpm -filter react build && pnpm -filter vue build",
     "build:core": "pnpm -filter core build",
     "build:react": "pnpm -filter react build",
+    "build:vue": "pnpm -filter vue build",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.vue",
     "format": "prettier --write .",
     "prepare": "husky",

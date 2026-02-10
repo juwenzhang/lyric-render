@@ -10,6 +10,8 @@ module.exports = {
     'prettier/prettier': 'error',
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/no-unused-vars': 'warn',
+    '@typescript-eslint/ban-types': 'warn',
+    '@typescript-eslint/ban-ts-comment': 'warn',
   },
   env: {
     browser: true,

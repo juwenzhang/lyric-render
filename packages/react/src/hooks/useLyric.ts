@@ -1,5 +1,8 @@
 import { useState, useCallback, useEffect } from 'react'
-import { parseLyric as coreParseLyric, defaultLyricCache } from '@lyric-render/core'
+import {
+  parseLyric as coreParseLyric,
+  defaultLyricCache,
+} from '@lyric-render/core'
 import type {
   BaseLyricItem,
   LyricSource,

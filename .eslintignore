@@ -4,3 +4,6 @@ dist
 commitlint.config.js
 .eslintrc.js
 .prettierrc.js
+
+
+*.vue  
